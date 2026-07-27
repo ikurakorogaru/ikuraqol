@@ -1,0 +1,15 @@
+/ikuraqol hoverkey keys list
+/ikuraqol runkotlin a
+/ikuraqol runkotlin println("a")
+/ikuraqol runkotlin println("Hello World!")
+/ikuraqol runkotlin a
+/ikuraqol runkotlin println("Hello World!!")
+/ikuraqol runkotlin a
+/tps
+/ikuraqol runkotlin a
+/kill @e[type=!minecraft:player]
+/gamerule domob false
+/gamerule spawn_mobs false
+/kill @e[type=!minecraft:player]
+/ikuraqol runkotlin a
+/ikuraqol runkotlin println("Hello World!")

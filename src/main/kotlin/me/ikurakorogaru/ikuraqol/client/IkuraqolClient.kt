@@ -1,0 +1,30 @@
+package me.ikurakorogaru.ikuraqol.client
+
+import net.fabricmc.api.ClientModInitializer
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands
+
+val mainCommand = ClientCommands.literal("ikuraqol")
+
+val featurePaths: MutableList<String> = mutableListOf(
+    "me.ikurakorogaru.ikuraqol.client.feature.HoverKey",
+    "me.ikurakorogaru.ikuraqol.client.feature.RunKotlin",
+    )
+
+class IkuraQolClient : ClientModInitializer {
+    override fun onInitializeClient() {
+        featurePaths.forEach {
+            try {
+                Class.forName(it)
+            } catch (e: ClassNotFoundException) {
+                e.printStackTrace()
+            }
+        }
+
+        ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
+            dispatcher.register(mainCommand)
+
+        }
+
+    }
+}
