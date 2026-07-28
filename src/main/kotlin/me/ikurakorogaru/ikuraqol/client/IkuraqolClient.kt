@@ -9,6 +9,7 @@ val mainCommand = ClientCommands.literal("ikuraqol")
 val featurePaths: MutableList<String> = mutableListOf(
     "me.ikurakorogaru.ikuraqol.client.feature.HoverKey",
     "me.ikurakorogaru.ikuraqol.client.feature.RunKotlin",
+    "me.ikurakorogaru.ikuraqol.client.feature.FogClear",
     )
 
 class IkuraQolClient : ClientModInitializer {
