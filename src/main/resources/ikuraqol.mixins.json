@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "FogRendererAccessor"
+    "FogRendererAccessor",
+    "KeyMappingAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

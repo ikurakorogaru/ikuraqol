@@ -10,6 +10,7 @@ val featurePaths: MutableList<String> = mutableListOf(
     "me.ikurakorogaru.ikuraqol.client.feature.HoverKey",
     "me.ikurakorogaru.ikuraqol.client.feature.RunKotlin",
     "me.ikurakorogaru.ikuraqol.client.feature.FogClear",
+    "me.ikurakorogaru.ikuraqol.client.feature.AutoKey",
     )
 
 class IkuraQolClient : ClientModInitializer {
