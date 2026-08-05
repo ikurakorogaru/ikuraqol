@@ -115,9 +115,6 @@ object AutoKey {
                             .executes { context ->
                                 ifClick = false
                                 clickKeys
-                                    .forEach { keyMapping ->
-                                        keyMapping.setDown(false)
-                                    }
                                 1
                             }
                     )
@@ -125,12 +122,14 @@ object AutoKey {
             )
         }
         ClientTickEvents.START_CLIENT_TICK.register {
-            tickCount++
-            if (tickCount >= delaytick) {
-                tickCount = 0
-                clickKeys.forEach {keyMapping ->
-                    val key = (keyMapping as KeyMappingAccessor).`ikuraqol$getKey`()
-                    KeyMapping.click(key)
+            if (ifClick) {
+                tickCount++
+                if (tickCount >= delaytick) {
+                    tickCount = 0
+                    clickKeys.forEach { keyMapping ->
+                        val key = (keyMapping as KeyMappingAccessor).`ikuraqol$getKey`()
+                        KeyMapping.click(key)
+                    }
                 }
             }
         }
