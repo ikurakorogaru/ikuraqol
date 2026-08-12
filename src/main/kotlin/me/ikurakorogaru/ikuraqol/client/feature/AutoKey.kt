@@ -1,5 +1,6 @@
 package me.ikurakorogaru.ikuraqol.client.feature
 
+import me.ikurakorogaru.ikuraqol.client.GlobalData
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
 import me.ikurakorogaru.ikuraqol.client.mainCommand
@@ -13,10 +14,7 @@ import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
 
 object AutoKey {
-    var clickKeys: MutableList<KeyMapping> = mutableListOf()
-    var ifClick: Boolean = false
-    var delaytick: Int = 0
-    var tickCount: Int = 0
+    private val data = GlobalData.AutoKey
 
     init {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
@@ -47,7 +45,7 @@ object AutoKey {
                                                     print("not found $keyId")
                                                 }
                                                 if (keyMapping != null) {
-                                                    clickKeys
+                                                    data.clickKeys
                                                         .add(keyMapping)
                                                 }
                                                 1
@@ -59,14 +57,14 @@ object AutoKey {
                                         ClientCommands.argument("keyId", StringArgumentType.word())
                                             .suggests { _, builder ->
                                                 SharedSuggestionProvider.suggest(
-                                                    clickKeys
+                                                    data.clickKeys
                                                         .map { it.name },
                                                     builder
                                                 )
                                             }.executes { context ->
                                                 val keyId = StringArgumentType.getString(context, "keyId")
 
-                                                val keyMapping = clickKeys
+                                                val keyMapping = data.clickKeys
                                                     .find {
                                                         it.name == keyId
                                                     }
@@ -74,7 +72,7 @@ object AutoKey {
                                                     print("not found $keyId")
                                                 }
                                                 if (keyMapping != null) {
-                                                    clickKeys
+                                                    data.clickKeys
                                                         .remove(keyMapping)
                                                 }
                                                 1
@@ -86,7 +84,7 @@ object AutoKey {
                                     .executes { context ->
                                         context.source.sendFeedback(
                                             Component.literal(
-                                                clickKeys
+                                                data.clickKeys
                                                     .joinToString(
                                                         separator = ", ",
                                                         transform = { it.name })
@@ -100,21 +98,21 @@ object AutoKey {
                             .then(
                                 ClientCommands.argument("delaytick", IntegerArgumentType.integer())
                                     .executes { context ->
-                                        delaytick = IntegerArgumentType.getInteger(context, "delaytick")
+                                        data.delayTick = IntegerArgumentType.getInteger(context, "delaytick")
                                         1
                                     }
                             )
                     ).then(
                         ClientCommands.literal("on")
                             .executes { context ->
-                                ifClick = true
+                                data.toggle = true
                                 1
                             }
                     ).then(
                         ClientCommands.literal("off")
                             .executes { context ->
-                                ifClick = false
-                                clickKeys
+                                data.toggle = false
+                                data.clickKeys
                                 1
                             }
                     )
@@ -122,11 +120,11 @@ object AutoKey {
             )
         }
         ClientTickEvents.START_CLIENT_TICK.register {
-            if (ifClick) {
-                tickCount++
-                if (tickCount >= delaytick) {
-                    tickCount = 0
-                    clickKeys.forEach { keyMapping ->
+            if (data.toggle) {
+                data.tickCount++
+                if (data.tickCount >= data.delayTick) {
+                    data.tickCount = 0
+                    data.clickKeys.forEach { keyMapping ->
                         val key = (keyMapping as KeyMappingAccessor).`ikuraqol$getKey`()
                         KeyMapping.click(key)
                     }

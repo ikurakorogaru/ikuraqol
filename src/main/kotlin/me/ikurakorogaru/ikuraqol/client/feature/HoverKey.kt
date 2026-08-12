@@ -1,11 +1,11 @@
 package me.ikurakorogaru.ikuraqol.client.feature
 
+import me.ikurakorogaru.ikuraqol.client.GlobalData
 import com.mojang.brigadier.arguments.StringArgumentType
 import me.ikurakorogaru.ikuraqol.client.mainCommand
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
-import net.minecraft.client.KeyMapping
 import net.minecraft.client.Minecraft
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
@@ -13,10 +13,9 @@ import kotlin.collections.forEach
 
 
 object HoverKey {
-    init {
-        var pushKeys: MutableList<KeyMapping> = mutableListOf()
-        var ifPush: Boolean = false
+    private val data = GlobalData.HoverKey
 
+    init {
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
             dispatcher.register(
                 mainCommand.then(
@@ -46,7 +45,7 @@ object HoverKey {
                                                         print("not found $keyId")
                                                     }
                                                     if (keyMapping != null) {
-                                                        pushKeys.add(keyMapping)
+                                                        data.pushKeys.add(keyMapping)
                                                     }
                                                     1
                                                 }
@@ -57,20 +56,20 @@ object HoverKey {
                                             ClientCommands.argument("keyId", StringArgumentType.word())
                                                 .suggests { _, builder ->
                                                     SharedSuggestionProvider.suggest(
-                                                        pushKeys.map { it.name },
+                                                        data.pushKeys.map { it.name },
                                                         builder
                                                     )
                                                 }.executes { context ->
                                                     val keyId = StringArgumentType.getString(context, "keyId")
 
-                                                    val keyMapping = pushKeys.find {
+                                                    val keyMapping = data.pushKeys.find {
                                                         it.name == keyId
                                                     }
                                                     if (keyMapping == null) {
                                                         print("not found $keyId")
                                                     }
                                                     if (keyMapping != null) {
-                                                        pushKeys.remove(keyMapping)
+                                                        data.pushKeys.remove(keyMapping)
                                                         keyMapping.setDown(true)
                                                     }
                                                     1
@@ -82,7 +81,7 @@ object HoverKey {
                                         .executes { context ->
                                             context.source.sendFeedback(
                                                 Component.literal(
-                                                    pushKeys.joinToString(
+                                                    data.pushKeys.joinToString(
                                                         separator = ", ",
                                                         transform = { it.name })
                                                 )
@@ -93,14 +92,14 @@ object HoverKey {
                         ).then(
                             ClientCommands.literal("on")
                                 .executes { context ->
-                                    ifPush = true
+                                    data.toggle = true
                                     1
                                 }
                         ).then(
                             ClientCommands.literal("off")
                                 .executes { context ->
-                                    ifPush = false
-                                    pushKeys.forEach { keyMapping ->
+                                    data.toggle = false
+                                    data.pushKeys.forEach { keyMapping ->
                                         keyMapping.setDown(false)
                                     }
                                     1
@@ -111,8 +110,8 @@ object HoverKey {
         }
 
         ClientTickEvents.START_CLIENT_TICK.register {
-            if (ifPush) {
-                pushKeys.forEach { keyMapping ->
+            if (data.toggle) {
+                data.pushKeys.forEach { keyMapping ->
                     keyMapping.setDown(true)
                 }
             }

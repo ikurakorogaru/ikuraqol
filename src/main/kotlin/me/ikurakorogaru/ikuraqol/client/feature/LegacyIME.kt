@@ -1,5 +1,6 @@
 package me.ikurakorogaru.ikuraqol.client.feature
 
+import me.ikurakorogaru.ikuraqol.client.GlobalData
 import me.ikurakorogaru.ikuraqol.client.mainCommand
 import me.ikurakorogaru.ikuraqol.access.TextInputManagerAccessor
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
@@ -8,7 +9,6 @@ import net.minecraft.client.Minecraft
 
 object LegacyIME {
     init {
-        var toggled = false
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
             dispatcher.register(
                 mainCommand.then(
