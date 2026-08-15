@@ -14,3 +14,5 @@
 指定したキーを連打します
 ### LegacyIME
 どこでもIMEを使えるようになります
+### NoPitchLimit
+視点のpitchの制限を無くします
