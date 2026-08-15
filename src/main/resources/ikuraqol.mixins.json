@@ -8,7 +8,8 @@
   "client": [
     "FogRendererAccessor",
     "KeyMappingAccessor",
-    "TextInputManagerMixin"
+    "TextInputManagerMixin",
+    "NoPitchLimitMixin"
   ],
   "injectors": {
     "defaultRequire": 1
