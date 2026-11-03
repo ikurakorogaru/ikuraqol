@@ -22,7 +22,7 @@ object LegacyIME {
                         ).then(
                             ClientCommands.literal("off")
                                 .executes { context ->
-                                    (Minecraft.getInstance().textInputManager() as TextInputManagerAccessor).`ikuraqol$setKeepTextInputEnabled`(true)
+                                    (Minecraft.getInstance().textInputManager() as TextInputManagerAccessor).`ikuraqol$setKeepTextInputEnabled`(false)
                                     1
                                 }
                         )

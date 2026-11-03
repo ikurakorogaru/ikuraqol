@@ -10,7 +10,7 @@ object GlobalData{
     object AutoKey{
         val clickKeys: MutableList<KeyMapping> = mutableListOf()
         var toggle: Boolean = false
-        var delayTick: Int = 0
+        var delayTick: Int = 10
         var tickCount: Int = 0
     }
 }

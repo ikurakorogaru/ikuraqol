@@ -112,7 +112,7 @@ object AutoKey {
                         ClientCommands.literal("off")
                             .executes { context ->
                                 data.toggle = false
-                                data.clickKeys
+                                data.tickCount = 0
                                 1
                             }
                     )
