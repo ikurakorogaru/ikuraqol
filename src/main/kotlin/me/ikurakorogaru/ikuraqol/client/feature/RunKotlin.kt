@@ -56,7 +56,7 @@ object RunKotlin {
                                     val source = context.source
 
                                     source.sendFeedback(
-                                        Component.literal("Kotlinコードをコンパイル中...")
+                                        Component.translatable("command.ikuraqol.runkotlin.compiling")
                                     )
 
                                     CompletableFuture.supplyAsync(
@@ -84,13 +84,15 @@ object RunKotlin {
 
                                                     if (errors.isEmpty()) {
                                                         source.sendFeedback(
-                                                            Component.literal("コンパイルに失敗しました")
+                                                            Component.translatable("command.ikuraqol.runkotlin.compile_failed")
                                                         )
                                                     } else {
                                                         errors.forEach { report ->
                                                             source.sendFeedback(
-                                                                Component.literal(
-                                                                    "${report.severity}: ${report.message}"
+                                                                Component.translatable(
+                                                                    "command.ikuraqol.runkotlin.diagnostic",
+                                                                    report.severity,
+                                                                    report.message
                                                                 )
                                                             )
                                                         }
@@ -123,8 +125,9 @@ object RunKotlin {
                                             when {
                                                 runtimeError != null -> {
                                                     source.sendFeedback(
-                                                        Component.literal(
-                                                            "実行エラー: ${runtimeError.error}"
+                                                        Component.translatable(
+                                                            "command.ikuraqol.runkotlin.runtime_error",
+                                                            runtimeError.error
                                                         )
                                                     )
                                                 }
@@ -132,8 +135,10 @@ object RunKotlin {
                                                 errors.isNotEmpty() -> {
                                                     errors.forEach { report ->
                                                         source.sendFeedback(
-                                                            Component.literal(
-                                                                "${report.severity}: ${report.message}"
+                                                            Component.translatable(
+                                                                "command.ikuraqol.runkotlin.diagnostic",
+                                                                report.severity,
+                                                                report.message
                                                             )
                                                         )
                                                     }
@@ -141,7 +146,7 @@ object RunKotlin {
 
                                                 else -> {
                                                     source.sendFeedback(
-                                                        Component.literal("コードを実行しました")
+                                                        Component.translatable("command.ikuraqol.runkotlin.success")
                                                     )
                                                 }
                                             }
@@ -149,8 +154,9 @@ object RunKotlin {
                                     }.exceptionally { error ->
                                         Minecraft.getInstance().execute {
                                             source.sendFeedback(
-                                                Component.literal(
-                                                    "内部エラー: ${error.cause ?: error}"
+                                                Component.translatable(
+                                                    "command.ikuraqol.runkotlin.internal_error",
+                                                    error.cause ?: error
                                                 )
                                             )
                                         }

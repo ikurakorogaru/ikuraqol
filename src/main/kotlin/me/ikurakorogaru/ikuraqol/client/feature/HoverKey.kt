@@ -42,7 +42,12 @@ object HoverKey {
                                                         it.name == keyId
                                                     }
                                                     if (keyMapping == null) {
-                                                        print("not found $keyId")
+                                                        context.source.sendFeedback(
+                                                            Component.translatable(
+                                                                "command.ikuraqol.key_not_found",
+                                                                keyId
+                                                            )
+                                                        )
                                                     }
                                                     if (keyMapping != null) {
                                                         data.pushKeys.add(keyMapping)
@@ -66,7 +71,12 @@ object HoverKey {
                                                         it.name == keyId
                                                     }
                                                     if (keyMapping == null) {
-                                                        print("not found $keyId")
+                                                        context.source.sendFeedback(
+                                                            Component.translatable(
+                                                                "command.ikuraqol.key_not_found",
+                                                                keyId
+                                                            )
+                                                        )
                                                     }
                                                     if (keyMapping != null) {
                                                         data.pushKeys.remove(keyMapping)

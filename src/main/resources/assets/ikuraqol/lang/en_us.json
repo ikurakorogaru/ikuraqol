@@ -1,0 +1,9 @@
+{
+  "command.ikuraqol.key_not_found": "Key not found: %s",
+  "command.ikuraqol.runkotlin.compiling": "Compiling Kotlin code...",
+  "command.ikuraqol.runkotlin.compile_failed": "Compilation failed",
+  "command.ikuraqol.runkotlin.diagnostic": "%s: %s",
+  "command.ikuraqol.runkotlin.runtime_error": "Runtime error: %s",
+  "command.ikuraqol.runkotlin.success": "Code executed successfully",
+  "command.ikuraqol.runkotlin.internal_error": "Internal error: %s"
+}

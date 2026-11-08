@@ -31,6 +31,7 @@ fabricApi {
 }
 
 repositories {
+    maven("https://api.modrinth.com/maven")
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -43,6 +44,7 @@ dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    implementation("maven.modrinth:WpZeWuIG:vnqV2Xt2")
 
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
     implementation("org.jetbrains.kotlin:kotlin-scripting-common:2.4.10")

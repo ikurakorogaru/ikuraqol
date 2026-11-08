@@ -42,7 +42,12 @@ object AutoKey {
                                                     it.name == keyId
                                                 }
                                                 if (keyMapping == null) {
-                                                    print("not found $keyId")
+                                                    context.source.sendFeedback(
+                                                        Component.translatable(
+                                                            "command.ikuraqol.key_not_found",
+                                                            keyId
+                                                        )
+                                                    )
                                                 }
                                                 if (keyMapping != null) {
                                                     data.clickKeys
@@ -69,7 +74,12 @@ object AutoKey {
                                                         it.name == keyId
                                                     }
                                                 if (keyMapping == null) {
-                                                    print("not found $keyId")
+                                                    context.source.sendFeedback(
+                                                        Component.translatable(
+                                                            "command.ikuraqol.key_not_found",
+                                                            keyId
+                                                        )
+                                                    )
                                                 }
                                                 if (keyMapping != null) {
                                                     data.clickKeys

@@ -1,0 +1,9 @@
+{
+  "command.ikuraqol.key_not_found": "キーが見つかりません: %s",
+  "command.ikuraqol.runkotlin.compiling": "Kotlinコードをコンパイル中...",
+  "command.ikuraqol.runkotlin.compile_failed": "コンパイルに失敗しました",
+  "command.ikuraqol.runkotlin.diagnostic": "%s: %s",
+  "command.ikuraqol.runkotlin.runtime_error": "実行エラー: %s",
+  "command.ikuraqol.runkotlin.success": "コードを実行しました",
+  "command.ikuraqol.runkotlin.internal_error": "内部エラー: %s"
+}
